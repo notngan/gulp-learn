@@ -1,8 +1,7 @@
 .header {
-  width: 71.42857%; }
+  width: 71.42857%;
+  height: 100%; }
 
 .testing {
-  width: 71.42857%; }
-
-.hey {
-  height: 100%; }
+  width: 71.42857%;
+  background: #000; }

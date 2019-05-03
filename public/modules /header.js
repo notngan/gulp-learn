@@ -3,10 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.toggle = void 0;
+exports.yo = void 0;
 
-var toggle = function toggle() {
-  console.log('hey');
+var yo = function yo() {
+  console.log('yo');
 };
 
-exports.toggle = toggle;
+exports.yo = yo;

@@ -1,3 +1,3 @@
-export const toggle = () => {
-  console.log('hey')
+export const yo = () => {
+  console.log('yo')
 }
