@@ -1,10 +1,7 @@
 const gulp = require('gulp')
-
 const nunjucks = require('gulp-nunjucks')
 const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
-const scssLint = require('gulp-scss-lint')
-
 const browserSync = require('browser-sync').create()
 const browserify = require('browserify')
 const babelify = require('babelify')
