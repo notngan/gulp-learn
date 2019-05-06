@@ -21,6 +21,7 @@
     "gulp-autoprefixer": "^6.1.0",
     "gulp-exit": "^0.0.2",
     "gulp-nunjucks": "^4.0.0",
+    "gulp-ruby-sass": "^4.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-scss-lint": "^1.0.0",
     "gulp-sourcemaps": "^2.6.5",

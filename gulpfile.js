@@ -1,6 +1,7 @@
 const gulp = require('gulp')
 const nunjucks = require('gulp-nunjucks')
 const sass = require('gulp-sass')
+const scssLint = require('gulp-scss-lint')
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 const browserify = require('browserify')
@@ -34,7 +35,8 @@ function html() {
 }
 
 function scss(done) {
-  gulp.src('./src/scss/**/*.scss')
+  gulp.src(['./src/scss/**/*.scss'])
+    .pipe(scssLint({ 'config': 'scss-lint.yml' }))
     .pipe(sass())
     .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
     .pipe(gulp.dest('./public'))
