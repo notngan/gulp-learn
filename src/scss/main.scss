@@ -1,6 +1,8 @@
-@import 'header';
+@import './modules/header';
+
+$black: #000;
 
 .testing {
+  background: $black;
   width: percentage(5/7);
-  background: #000;
 }

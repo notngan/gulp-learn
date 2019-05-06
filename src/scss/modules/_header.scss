@@ -1,0 +1,9 @@
+$yellow: #ff0;
+$orange: #ffa500;
+
+.header {
+  background-color: $yellow;
+  border: $orange solid 1px;
+  color: $orange;
+  padding: 10px;
+}

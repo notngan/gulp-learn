@@ -1,16 +1,20 @@
 const gulp = require('gulp')
+const del = require('del')
 const nunjucks = require('gulp-nunjucks')
 const sass = require('gulp-sass')
 const scssLint = require('gulp-scss-lint')
 const autoprefixer = require('gulp-autoprefixer')
+const cleanCss = require('gulp-clean-css')
+const sourcemaps = require('gulp-sourcemaps')
+const sourceStream = require('vinyl-source-stream')
+const buffer = require('vinyl-buffer')
+const uglify = require('gulp-uglify')
 const browserSync = require('browser-sync').create()
 const browserify = require('browserify')
 const babelify = require('babelify')
-const sourceStream = require('vinyl-source-stream')
-const buffer = require('vinyl-buffer')
-const del = require('del')
 
-function browserSyncInit(done) {
+
+const browserSyncInit = done => {
   browserSync.init({
     server: {
       baseDir: './public',
@@ -19,56 +23,58 @@ function browserSyncInit(done) {
   done()
 }
 
-function browserSyncReload(done) {
+const browserSyncReload = done => {
   browserSync.reload()
   done()
 }
 
-function clean() {
-  return del('./public')
+const clean = done => {
+  del('./public')
+  done()
 }
 
-function html() {
-  return gulp.src('./src/html/*.html')
+const html = done => {
+  gulp.src('./src/html/*.html')
     .pipe(nunjucks.compile())
     .pipe(gulp.dest('./public'))
+  done()
 }
 
-function scss(done) {
+const css = done => {
   gulp.src(['./src/scss/**/*.scss'])
+    .pipe(sourcemaps.init())
     .pipe(scssLint({ 'config': 'scss-lint.yml' }))
     .pipe(sass())
+    .on('error', err => { console.log(err) })
     .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
+    .pipe(cleanCss())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./public'))
     .pipe(browserSync.stream())
-
   done()
 }
 
-function js(done) {
+const js = done => {
   browserify({ entries: `./src/js/main.js` })
-  .transform(babelify, { 'presets': ['@babel/preset-env'] })
-  .bundle().on('error', err => { console.log(err) })
-  .pipe(sourceStream('main.js'))
-  .pipe(buffer())
-  .pipe(gulp.dest(`./public`))
-
+    .transform(babelify, { 'presets': ['@babel/preset-env'] })
+    .bundle().on('error', err => { console.log(err) })
+    .pipe(sourceStream('main.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest(`./public`))
   done()
 }
 
-function watchFiles() {
-  gulp.watch('./src/scss/**/*.scss', scss)
+const watchFiles = () => {
+  gulp.watch('./src/scss/**/*.scss', gulp.series(css))
   gulp.watch('./src/html/**/*.html', gulp.series(html, browserSyncReload))
   gulp.watch('./src/js/**/*.js', gulp.series(js, browserSyncReload)) 
 }
 
-const build = gulp.series(clean, gulp.parallel(scss, js, html))
-const watch = gulp.parallel(watchFiles, browserSyncInit)
-
 exports.html = html
-exports.scss = scss
+exports.css = css
 exports.js = js
 
 exports.clean = clean
-exports.build = build
-exports.default = watch
+exports.build = gulp.series(clean, gulp.parallel(css, js, html))
+exports.default = gulp.parallel(watchFiles, browserSyncInit)

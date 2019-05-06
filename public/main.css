@@ -1,8 +1,2 @@
-.header {
-  width: 71.42857%;
-  height: 100%;
-  color: black; }
-
-.testing {
-  width: 71.42857%;
-  background: #000; }
+.header{background-color:#ff0;border:orange solid 1px;color:orange;padding:10px}.testing{background:#000;width:71.42857%}
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZHVsZXMvX2hlYWRlci5zY3NzIiwibWFpbi5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBLFFBQ0UsaUJBQUEsS0FDQSxPQUFBLE9BQUEsTUFBQSxJQUNBLE1BQUEsT0FDQSxRQUFBLEtDSEYsU0FDRSxXQUFBLEtBQ0EsTUFBQSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIiR5ZWxsb3c6ICNmZjA7XG4kb3JhbmdlOiAjZmZhNTAwO1xuXG4uaGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogJHllbGxvdztcbiAgYm9yZGVyOiAkb3JhbmdlIHNvbGlkIDFweDtcbiAgY29sb3I6ICRvcmFuZ2U7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG4iLCJAaW1wb3J0ICcuL21vZHVsZXMvaGVhZGVyJztcblxuJGJsYWNrOiAjMDAwO1xuXG4udGVzdGluZyB7XG4gIGJhY2tncm91bmQ6ICRibGFjaztcbiAgd2lkdGg6IHBlcmNlbnRhZ2UoNS83KTtcbn1cbiJdfQ== */
