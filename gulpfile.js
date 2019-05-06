@@ -1,10 +1,16 @@
 const gulp = require('gulp')
-const sass = require('gulp-sass')
+
 const nunjucks = require('gulp-nunjucks')
-const babel = require('gulp-babel')
-const browserSync = require('browser-sync').create()
-const del = require('del')
+const sass = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
+const scssLint = require('gulp-scss-lint')
+
+const browserSync = require('browser-sync').create()
+const browserify = require('browserify')
+const babelify = require('babelify')
+const sourceStream = require('vinyl-source-stream')
+const buffer = require('vinyl-buffer')
+const del = require('del')
 
 function browserSyncInit(done) {
   browserSync.init({
@@ -30,19 +36,25 @@ function html() {
     .pipe(gulp.dest('./public'))
 }
 
-function scss() {
-  return gulp.src('./src/scss/**/*.scss')
+function scss(done) {
+  gulp.src('./src/scss/**/*.scss')
     .pipe(sass())
-    .pipe(autoprefixer({ browsers: ['last 2 versions'], cascade: false }))
+    .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
     .pipe(gulp.dest('./public'))
     .pipe(browserSync.stream())
+
+  done()
 }
 
-function js() {
-  return gulp.src('./src/js/**/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('./public'))
-    .pipe(browserSync.stream())
+function js(done) {
+  browserify({ entries: `./src/js/main.js` })
+  .transform(babelify, { 'presets': ['@babel/preset-env'] })
+  .bundle().on('error', err => { console.log(err) })
+  .pipe(sourceStream('main.js'))
+  .pipe(buffer())
+  .pipe(gulp.dest(`./public`))
+
+  done()
 }
 
 function watchFiles() {
